@@ -9,7 +9,7 @@ from Data import resource_path, game_folder_recover
 
 def load(path: str) -> None:
     try: return pygame.image.load(resource_path(path))
-    except: return pygame.image.load(resource_path("default.png"))
+    except: return pygame.image.load(resource_path("images\default_image.png"))
 
 def screenshot(image: pygame.Surface, path: str) -> None:
     main_path = os.getenv("APPDATA") + "\Tetris_byLCG"

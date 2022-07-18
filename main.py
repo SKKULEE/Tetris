@@ -38,7 +38,19 @@ pygame.time.Clock().tick(FPS)
 
 #Global Variables *************************************************************
 
-GAME_STATUS = Event.starting
+GAME_STATUS = Event.undefined
+PAUSED = False
+QUIT_MENU_POPPED = False
+
+
+
+#Functions ********************************************************************
+
+def render_pause_filter() -> None:
+    pass
+
+def ask_quit() -> None:
+    pass
 
 
 
@@ -46,8 +58,18 @@ GAME_STATUS = Event.starting
 
 RUNNING = True
 while RUNNING:
-    pass
+    SCREEN.fill((0, 0, 0))
+
+    GAME_STATUS.render_background(SCREEN)
+
+    if PAUSED:
+        render_pause_filter()
+
+    if QUIT_MENU_POPPED:
+        ask_quit()
+
+    SCREEN.flip()
 
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
-            Event.ask_quit.func()
+            QUIT_MENU_POPPED = True
