@@ -50,7 +50,9 @@ def render_pause_filter() -> None:
     pass
 
 def ask_quit() -> None:
-    pass
+    global RUNNING
+    WINDOW.quit()
+    RUNNING = False
 
 
 
@@ -67,9 +69,12 @@ while RUNNING:
 
     if QUIT_MENU_POPPED:
         ask_quit()
-
-    SCREEN.flip()
+        if RUNNING == False:
+            break
 
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             QUIT_MENU_POPPED = True
+
+    #Update Screen ****************************************
+    WINDOW.flip()

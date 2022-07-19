@@ -51,7 +51,7 @@ def render_debug_screen(screen: "pygame.display") -> None:
         screen.blit(default_image)
     except:
         default_image = Image.load("images\default_image.png")
-        screen.blit(default_image)
+        screen.blit(default_image, (0, 0))
 
 
 
