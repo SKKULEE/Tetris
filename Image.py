@@ -1,18 +1,23 @@
 #Built-in Modules *************************************************************
 
 import os, pygame, time
-from Data import resource_path, game_folder_recover
+
+
+
+#Custom Modules ***************************************************************
+
+import Data
 
 
 
 #Functions ********************************************************************
 
 def load(path: str) -> None:
-    try: return pygame.image.load(resource_path(path))
-    except: return pygame.image.load(resource_path("images\default_image.png"))
+    try: return pygame.image.load(Data.resource_path(path)).convert_alpha()
+    except: return pygame.image.load(Data.resource_path("images\default_image.png")).convert_alpha()
 
 def screenshot(image: pygame.Surface, path: str) -> None:
-    main_path = os.getenv("APPDATA") + "\Tetris_byLCG"
+    main_path = Data.game_folder_path()
     if os.path.isdir(main_path):
         screenshot_folder_path = main_path + "\screenshots"
         if not os.path.isdir(screenshot_folder_path):

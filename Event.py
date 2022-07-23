@@ -46,19 +46,22 @@ class effect:
 
 #Functions ********************************************************************
 
-def render_debug_screen(screen: "pygame.display") -> None:
+def render_test_screen(screen: "pygame.display") -> None:
     try:
         screen.blit(default_image)
     except:
-        default_image = Image.load("images\default_image.png")
+        default_image = Image.load("images\default_image.png").convert_alpha()
         screen.blit(default_image, (0, 0))
 
+
+def render_starting_screen(screen: "pygame.display") -> None:
+    pass
 
 
 #Class Variables **************************************************************
 
 undefined = event("undefined")
-undefined.set_background_rendering_function(render_debug_screen)
+undefined.set_background_rendering_function(render_test_screen)
 
 starting = event("starting")
 title_screen = event("title_screen")
