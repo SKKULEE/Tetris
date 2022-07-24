@@ -17,6 +17,7 @@ ICON = pygame.image.load("images\icon.png")
 RESOLUTION = (1440, 810)
 FPS = 60
 MAGNIFYING_RATE = 1
+CLOCK = pygame.time.Clock()
 
 
 
@@ -26,7 +27,6 @@ WINDOW = pygame.display
 WINDOW.set_caption(CAPTION)
 WINDOW.set_icon(ICON)
 SCREEN = WINDOW.set_mode(RESOLUTION)
-pygame.time.Clock().tick(FPS)
 pygame.mouse.set_visible(False)
 
 
@@ -40,9 +40,10 @@ import Data, Event, Image, Text
 #Global Variables *************************************************************
 
 DICT = {}
-GAME_STATUS = Event.undefined
+GAME_STATUS = Event.starting
 PAUSED = False
 QUIT_MENU_POPPED = False
+CURSOR_IMAGE = Image.load("images\cursor.png")
 
 
 
@@ -62,15 +63,18 @@ def ask_quit() -> None:
 
 RUNNING = True
 while RUNNING:
+    #Set Clock ********************************************
+    CLOCK.tick(FPS)
+
     #Default Background ***********************************
-    SCREEN.fill((0, 0, 0))
+    SCREEN.fill((0, 127, 255))
 
     #Current Background ***********************************
-    GAME_STATUS.render_background(SCREEN)
+    #GAME_STATUS.render_background()
 
     #Test *************************************************
-    SCREEN.fill((127, 127, 127))
-    Text.draw_text(SCREEN, "Tetris", (0, 0), origin = Text.top_left, align = Text.middle)
+    Text.draw_text(SCREEN, "Tetris", font_size = 16 * MAGNIFYING_RATE, pos = (0, 0))
+    print(CLOCK.get_fps())
 
     #Pause Filter *****************************************
     if PAUSED:
@@ -84,8 +88,8 @@ while RUNNING:
 
     #Draw Cursor ******************************************
     if pygame.mouse.get_focused():
-        cursor_image = Image.load("images\cursor.png")
-        SCREEN.blit(cursor_image, pygame.mouse.get_pos())
+        NEW_IMAGE = Image.scale(CURSOR_IMAGE, MAGNIFYING_RATE)
+        Image.draw(SCREEN, NEW_IMAGE, pygame.mouse.get_pos(), Image.center)
 
     #Key Input ********************************************
     for e in pygame.event.get():
