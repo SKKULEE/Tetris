@@ -19,7 +19,7 @@ pygame.init()
 #Basic Variables **************************************************************
 
 CAPTION = "Tetris -by.LCG"
-ICON = Image.load("images\icon.png")
+ICON = pygame.image.load("images\icon.png")
 RESOLUTION = (1440, 810)
 FPS = 60
 MAGNIFYING_RATE = 1
@@ -39,7 +39,7 @@ pygame.time.Clock().tick(FPS)
 #Global Variables *************************************************************
 
 DICT = {}
-GAME_STATUS = Event.starting
+GAME_STATUS = Event.undefined
 PAUSED = False
 QUIT_MENU_POPPED = False
 

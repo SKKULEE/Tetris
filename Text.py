@@ -13,10 +13,13 @@ import Data, Image
 #Variables ********************************************************************
 
 try:
-    font_image = pygame.image.load(Data.game_folder_path("font_image.png")).convert_alpha()
+    font_image = Image.load(Data.game_folder_path(Data.font))
 except:
-    font_image = pygame.image.load(Data.resource_path("images\backup_font_image.png")).convert_alpha()
-    Data.game_folder_recover()
+    try:
+        font_image = Image.load(Data.game_folder_path("fonts\LCG_classic.png"))
+    except:
+        font_image = Image.load(Data.resource_path("images\LCG_classic.png"))
+        Data.game_folder_recover()
 
 
 
@@ -24,7 +27,7 @@ except:
 
 def draw_text(screen: pygame.Surface, content: str = "", pos: (int, int) = (0, 0), font_size: int = 16, center: str = "top left", align: str = "left") -> None:
     line = content.split('\n')
-    clear_field = font_image.subsurface((0, 32, 16 ,16))
+    clear_field = Image.load(Data.resource_path("images\empty.png"))
     longest = max(len(i) for i in line)
     width = font_size * longest
     height = font_size * len(line)
@@ -41,7 +44,7 @@ def draw_text(screen: pygame.Surface, content: str = "", pos: (int, int) = (0, 0
             try:
                 original_character = font_image.subsurface((horizontal, vertical, 16, 16))
             except:
-                original_character = font_image.subsurface((horizontal, vertical, 16, 16))
+                original_character = font_image.subsurface((0, 0, 16, 16))
             transformed_character = pygame.transform.scale(original_character, (font_size, font_size))
             base.blit(transformed_character, cursor)
             cursor[0] += font_size

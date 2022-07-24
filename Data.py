@@ -54,3 +54,9 @@ Z-mino color: (236, 028, 036)"""
 
     new_data_file.write(encoded(default_content))
     new_data_file.close()
+
+
+
+#Variables ********************************************************************
+
+font = None #추가 예정
