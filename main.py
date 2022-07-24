@@ -4,12 +4,6 @@ import os, pygame
 
 
 
-#Custom Modules ***************************************************************
-
-import Data, Event, Image
-
-
-
 #pygame Initialization ********************************************************
 
 pygame.init()
@@ -33,6 +27,13 @@ WINDOW.set_caption(CAPTION)
 WINDOW.set_icon(ICON)
 SCREEN = WINDOW.set_mode(RESOLUTION)
 pygame.time.Clock().tick(FPS)
+pygame.mouse.set_visible(False)
+
+
+
+#Custom Modules ***************************************************************
+
+import Data, Event, Image, Text
 
 
 
@@ -67,6 +68,10 @@ while RUNNING:
     #Current Background ***********************************
     GAME_STATUS.render_background(SCREEN)
 
+    #Test *************************************************
+    SCREEN.fill((127, 127, 127))
+    Text.draw_text(SCREEN, "Tetris", (0, 0), origin = Text.top_left, align = Text.middle)
+
     #Pause Filter *****************************************
     if PAUSED:
         render_pause_filter()
@@ -76,6 +81,11 @@ while RUNNING:
         ask_quit()
         if RUNNING == False:
             break
+
+    #Draw Cursor ******************************************
+    if pygame.mouse.get_focused():
+        cursor_image = Image.load("images\cursor.png")
+        SCREEN.blit(cursor_image, pygame.mouse.get_pos())
 
     #Key Input ********************************************
     for e in pygame.event.get():

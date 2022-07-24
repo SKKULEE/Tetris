@@ -37,3 +37,6 @@ def screenshot(image: pygame.Surface, path: str) -> None:
     else:
         Data.game_folder_recover()
         return False
+
+def scale(image: pygame.Surface, target_size: (int, int)) -> pygame.Surface:
+    return pygame.transform.smoothscale(image, target_size)

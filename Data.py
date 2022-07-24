@@ -42,7 +42,7 @@ def game_file_write(content: str) -> None:
 
 def game_folder_recover() -> None:
     os.mkdir(game_folder_path())
-    new_data_file = open(game_folder_path("\data.dat"), 'w')
+    new_data_file = open(game_folder_path("data.dat"), 'w')
     
     default_content = """I-mino color: (140, 255, 251)
 L-mino color: (255, 127, 039)
