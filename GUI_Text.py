@@ -10,36 +10,59 @@ import Data, Image
 
 
 
-#Classes **********************************************************************
-"""
-class character:
-    def __init__(self, content: str, image: "pygame.image", legnth_width_ratio: int) -> None:
-        self.content = content
-        self.image = image
-        self.length_width_ratio = length_width_ratio
+#Variables ********************************************************************
 
-    def render(self, screen: pygame.Surface, font_size: int = 10, pos: (int, int) = (0, 0)) -> None:
-        screen.blit(pygame.image.transform.scale(self.image, pos))
-"""
-
-
-#Class Variables **************************************************************
-
-#A = character("A", Image.load())
+try:
+    font_image = pygame.image.load(Data.game_folder_path("font_image.png")).convert_alpha()
+except:
+    font_image = pygame.image.load(Data.resource_path("images\backup_font_image.png")).convert_alpha()
+    Data.game_folder_recover()
 
 
 
 #Functions ********************************************************************
 
-def font_image() -> pygame.image:
-    base_path = Data.game_folder_path()
-    main_path = os.path.join(base_path, "font_image.png")
-    pygame.image.load(main_path)
+def draw_text(screen: pygame.Surface, content: str = "", pos: (int, int) = (0, 0), font_size: int = 16, center: str = "top left", align: str = "left") -> None:
+    line = content.split('\n')
+    clear_field = font_image.subsurface((0, 32, 16 ,16))
+    longest = max(len(i) for i in line)
+    width = font_size * longest
+    height = font_size * len(line)
+    base = pygame.transform.scale(clear_field, (width, height))
+    
+    cursor = [0, -font_size]
+    for i in line:
+        cursor[0] = font_size * (longest - len(i)) * (1 if align == "middle" else 2 if align == "right" else 0) // 2
+        cursor[1] += font_size
+        for j in i:
+            character_id = ord(j)
+            horizontal = character_id % 16 * 16
+            vertical = character_id // 16 * 16
+            try:
+                original_character = font_image.subsurface((horizontal, vertical, 16, 16))
+            except:
+                original_character = font_image.subsurface((horizontal, vertical, 16, 16))
+            transformed_character = pygame.transform.scale(original_character, (font_size, font_size))
+            base.blit(transformed_character, cursor)
+            cursor[0] += font_size
 
+    if center == "top":
+        base.center = (width // 2, 0)
+    elif center == "top right":
+        base.center = (width, 0)
+    elif center == "left":
+        base.center = (0, height // 2)
+    elif center == "center":
+        base.center = (width // 2, height // 2)
+    elif center == "right":
+        base.center = (width, height // 2)
+    elif center == "bottom left":
+        base.center = (0, height)
+    elif center == "bottom":
+        base.center = (width // 2, height)
+    elif center == "bottom right":
+        base.center = (width, height)
+    else: #default: center == "top left"
+        base.center = (0, 0)
 
-def draw_text(screen: pygame.Surface, content: str = "", pos: (int, int) = (0, 0), font_size: int = 10, align: str = "top left") -> None:
-    pass
-
-
-#일단 이미지 파일 전체를 불러오는 함수는 만들었는데, 이걸 어떻게 처리할지는 아직 미정...
-#모든 글자를 전각으로 처리하면 편하긴 한데 흠...
+    screen.blit(base, pos)
