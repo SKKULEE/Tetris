@@ -1,6 +1,36 @@
+#!/usr/bin/env python3
+
+
+
 #Custom Modules ***************************************************************
 
 import Image
+
+
+
+#Default Colors ***************************************************************
+
+I_MINO_COLOR = (140, 255, 251)
+J_MINO_COLOR = (255, 127,  39)
+L_MINO_COLOR = (255, 127,  39)
+O_MINO_COLOR = (255, 242,   0)
+S_MINO_COLOR = (147, 255,  14)
+T_MINO_COLOR = (184,  61, 186)
+Z_MINO_COLOR = (236,  28,  36)
+
+
+
+#Initialization Functions *****************************************************
+
+def set_base_color(I, J, L, O, S, T, Z):
+    global I_MINO_COLOR, J_MINO_COLOR, L_MINO_COLOR, O_MINO_COLOR, S_MINO_COLOR, T_MINO_COLOR, Z_MINO_COLOR
+    I_MINO_COLOR = I
+    J_MINO_COLOR = J
+    L_MINO_COLOR = L
+    O_MINO_COLOR = O
+    S_MINO_COLOR = S
+    T_MINO_COLOR = T
+    Z_MINO_COLOR = Z
 
 
 

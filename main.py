@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+
+
+
 #Built-in Modules *************************************************************
 
 import os, pygame
@@ -99,12 +103,6 @@ def ask_quit() -> None:
 
 
 
-#Event Initialization *********************************************************
-
-Event.starting.init(SCREEN)
-
-
-
 #Main Loop ********************************************************************
 
 RUNNING = True
@@ -116,10 +114,11 @@ while RUNNING:
     SCREEN.fill((0, 127, 255))
 
     #Run Events *******************************************
-    GAME_STATUS.run_acts()
+    GAME_STATUS.run_events()
 
     #Test *************************************************
-    print(CLOCK.get_fps())
+    cur_fps = int(CLOCK.get_fps())
+    Text.draw_text(SCREEN, "FPS: %d" % cur_fps)
 
     #Pause Filter *****************************************
     if PAUSED:

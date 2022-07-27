@@ -1,6 +1,10 @@
+#!/usr/bin/env python3
+
+
+
 #Built-in Modules *************************************************************
 
-import os, pygame, sys, time
+import os, pygame
 
 
 
@@ -68,7 +72,7 @@ def screenshot(path: str) -> None:
 
 def scale(image: pygame.Surface, target_scale: int or float or (int, int) = 1) -> pygame.Surface:
     if type(target_scale) in (int, float):
-        size = image.get_rect().size
+        size = image.get_size()
         new_size = tuple(map(int, (size[0] * target_scale, size[1] * target_scale)))
         return pygame.transform.smoothscale(image, new_size)
     else:
@@ -99,3 +103,7 @@ def draw(screen: pygame.Surface, image: pygame.Surface, pos: (int, int) = (0, 0)
         rect.topleft = pos
 
     screen.blit(image, rect)
+
+def color_swap(surf: pygame.Surface, old_color: (int, int, int), new_color: (int, int, int)) -> pygame.Surface:
+    base = pygame.Surface.get_size()
+    base.fill(new_color)
