@@ -4,7 +4,7 @@
 
 #Built-in Modules *************************************************************
 
-import os, pygame
+import os, pygame, time
 
 
 
@@ -30,6 +30,7 @@ default_image = pygame.image.load(Data.resource_path("images\default_image.png")
 
 #Class Variables **************************************************************
 
+#Vertices *************************************************
 top_left = vertex("top left")
 top_mid = vertex("top middle")
 top_right = vertex("top right")
@@ -44,27 +45,28 @@ bot_right = vertex("bottom right")
 
 #Functions ********************************************************************
 
-def load(path: str) -> None:
+def load(path: str) -> pygame.Surface:
     try: return pygame.image.load(Data.resource_path(path)).convert_alpha()
     except: return default_image
 
-def screenshot(path: str) -> None:
+def screenshot(screen: pygame.Surface) -> bool:
     main_path = Data.game_folder_path()
     if os.path.isdir(main_path):
-        screenshot_folder_path = main_path + "\screenshots"
+        screenshot_folder_path = os.path.join(main_path, "screenshots")
         if not os.path.isdir(screenshot_folder_path):
-            os.mkdir(screenshot_forder_path)
-        year = time.tm_year
-        month = time.tm_month
-        day = time.tm_day
-        hour = time.tm_hour
-        minute = time.tm_min
-        second = time.tm_sec
+            os.mkdir(screenshot_folder_path)
+        cur_timestamp = time.localtime(time.time())
+        year = cur_timestamp.tm_year
+        month = cur_timestamp.tm_mon
+        day = cur_timestamp.tm_mday
+        hour = cur_timestamp.tm_hour
+        minute = cur_timestamp.tm_min
+        second = cur_timestamp.tm_sec
         current_screenshot_name = "screenshot_%s-%s-%s-%s-%s-%s.png" % (year, month, day, hour, minute, second)
         for i in range(2, 2147483647):
             if not os.path.isfile(current_screenshot_name): break
             current_screenshot_name = "screenshot_%s-%s-%s-%s-%s-%s(%d).png" % (year, month, day, hour, minute, second, i)
-        pygame.image.save(SCREEN, screenshot_folder_path + "\\" + current_screenshot_name)
+        pygame.image.save(screen, os.path.join(screenshot_folder_path, current_screenshot_name))
         return True
     else:
         Data.game_folder_recover()
@@ -104,6 +106,13 @@ def draw(screen: pygame.Surface, image: pygame.Surface, pos: (int, int) = (0, 0)
 
     screen.blit(image, rect)
 
+def copy(surf: pygame.Surface) -> pygame.Surface:
+    new_img = pygame.Surface(surf.get_size(), pygame.SRCALPHA)
+    draw(new_img, surf)
+    return new_img
+
 def color_swap(surf: pygame.Surface, old_color: (int, int, int), new_color: (int, int, int)) -> pygame.Surface:
-    base = pygame.Surface.get_size()
-    base.fill(new_color)
+    px_ar = pygame.PixelArray(surf)
+    px_ar.replace(old_color, new_color)
+    new_img = px_ar.make_surface()
+    return new_img
