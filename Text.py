@@ -45,7 +45,7 @@ right = align("right")
 
 #Functions ********************************************************************
 
-def text_to_image(content: str, font_size: int = 16, align: align = left) -> pygame.Surface:
+def text_to_image(content: str, font_size: int = 16, align: align = left, color = (0, 0, 0)) -> pygame.Surface:
     line = content.split('\n')
     longest = max(len(i) for i in line)
     character_width = font_size * 14 // 16
@@ -53,6 +53,7 @@ def text_to_image(content: str, font_size: int = 16, align: align = left) -> pyg
     field_width = character_width * longest
     field_height = character_height * len(line)
     base = pygame.Surface((field_width, field_height), pygame.SRCALPHA)
+    colored_font_image = Image.color_swap(font_image, (0, 0, 0), color)
 
     cursor = [0, -font_size]
     for i in line:
@@ -63,14 +64,14 @@ def text_to_image(content: str, font_size: int = 16, align: align = left) -> pyg
             horizontal = character_id % 16 * 16 + 1
             vertical = character_id // 16 * 16
             try:
-                original_character = font_image.subsurface((horizontal, vertical, 14, 16))
+                original_character = colored_font_image.subsurface((horizontal, vertical, 14, 16))
             except:
-                original_character = font_image.subsurface((1, 0, 14, 16))
+                original_character = colored_font_image.subsurface((1, 0, 14, 16))
             transformed_character = Image.scale(original_character, (character_width, character_height))
             Image.draw(base, transformed_character, cursor)
             cursor[0] += character_width
     return base
 
-def draw_text(screen: pygame.display, content: str, font_size: int = 16, align: align = left, pos: (int, int) = (0, 0), vertex: Image.vertex = Image.top_left) -> None:
-    text_image = text_to_image(content, font_size, align)
+def draw_text(screen: pygame.display, content: str, font_size: int = 16, align: align = left, pos: (int, int) = (0, 0), vertex: Image.vertex = Image.top_left, color = (0, 0, 0)) -> None:
+    text_image = text_to_image(content, font_size, align, color)
     Image.draw(screen, text_image, pos, vertex)
