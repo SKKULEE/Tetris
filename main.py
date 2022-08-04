@@ -118,19 +118,20 @@ while RUNNING:
 
     #Test *************************************************
     cur_fps = int(CLOCK.get_fps())
-    Text.draw_text(SCREEN, "FPS: %d" % cur_fps)
+    Text.draw_text(SCREEN, "FPS: %d" % cur_fps, font_size = 16 * MAGNIFYING_RATE, color = (255, 255, 255))
+    Text.draw_text(SCREEN, "GAME_STATUS: %s" % GAME_STATUS.name, font_size = 16 * MAGNIFYING_RATE, pos = SCREEN.get_size(), vertex = Image.bot_right, color = (255, 255, 255))
 
-    #Pause Filter *****************************************
+    #Pause Filter ***************************************** This and...
     if PAUSED:
         render_pause_filter()
 
-    #Quit Menu ********************************************
+    #Quit Menu ******************************************** This and...
     if QUIT_MENU_POPPED:
         ask_quit()
         if RUNNING == False:
             break
 
-    #Draw Cursor ******************************************
+    #Draw Cursor ****************************************** This will be changed to be under control of 'Event' module
     if pygame.mouse.get_focused():
         NEW_IMAGE = Image.scale(CURSOR_IMAGE, MAGNIFYING_RATE)
         Image.draw(SCREEN, NEW_IMAGE, pygame.mouse.get_pos(), Image.center)
