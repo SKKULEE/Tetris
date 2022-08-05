@@ -10,7 +10,7 @@ import functools, os, pygame, sys
 
 #Custom Modules ***************************************************************
 
-import Data, Image, Text
+import Button, Data, Image, Text
 
 
 
@@ -180,11 +180,36 @@ def title_screen_background_action(st: status) -> None:
     SCREEN.fill((40, 40, 120)) #Will be title_screen_image(.png) later...
 
     title_screen_board = Image.load("images\classic_board.png")
-
     Image.scale(title_screen_board, MAGNIFYING_RATE)
-    Image.draw(SCREEN, title_screen_board, pos = (160, 213))
+    Image.draw(SCREEN, title_screen_board, pos = (80, 168))
+    Text.draw_text(SCREEN, "AI Gameplay\nwill be\nhere.\n(as background)", font_size = 16 * MAGNIFYING_RATE, align = Text.middle, pos = (160, 360), vertex = Image.center, color = (255, 255, 255)) #Temporary Test Code
 
-    Text.draw_text(SCREEN, "AI Gameplay\nwill be\nhere.", font_size = 16 * MAGNIFYING_RATE, align = Text.middle, pos = (240, 405), vertex = Image.center, color = (255, 255, 255)) #Temporary Test Code
+    title_image = Image.load("images\\title.png")
+    Image.draw(SCREEN, title_image, pos = (520, 360), vertex = Image.center)
+
+    single_play_button = Button.button("Single Play")
+    single_play_button.set_default_image(Image.load("images\long_button_base.png"))
+    single_play_button.set_vertex(Image.center)
+    single_play_button.set_pos((960, 160))
+    single_play_button.render(SCREEN)
+    
+    multi_play_button = Button.button("Multi Play")
+    multi_play_button.set_default_image(Image.load("images\long_button_base.png"))
+    multi_play_button.set_vertex(Image.center)
+    multi_play_button.set_pos((960, 293))
+    multi_play_button.render(SCREEN)
+
+    setting_button = Button.button("Setting")
+    setting_button.set_default_image(Image.load("images\long_button_base.png"))
+    setting_button.set_vertex(Image.center)
+    setting_button.set_pos((960, 427))
+    setting_button.render(SCREEN)
+
+    exit_button = Button.button("Exit")
+    exit_button.set_default_image(Image.load("images\long_button_base.png"))
+    exit_button.set_vertex(Image.center)
+    exit_button.set_pos((960, 560))
+    exit_button.render(SCREEN)
 
 title_screen_background_event = event("title_screen_background_event", always, title_screen_background_action)
 
