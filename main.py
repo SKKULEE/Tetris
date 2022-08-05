@@ -18,8 +18,8 @@ pygame.init()
 
 CAPTION = "Tetris -by.LCG"
 ICON = pygame.image.load("images\icon.png")
-RESOLUTION = (1440, 810)
-FPS = 60
+RESOLUTION = (1280, 720)
+FPS = 120
 MAGNIFYING_RATE = 1
 CLOCK = pygame.time.Clock()
 
