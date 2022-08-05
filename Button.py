@@ -33,7 +33,7 @@ just_declicked = status("get_declicked")
 class button:
     def __init__(self, text: str) -> None:
         self.text = text
-        self.image = {default: Image.load(None)}
+        self.image = {"default": Image.load(None)}
         self.pos = [0, 0]
         self.vertex = Image.top_left
         self.stat = idling
@@ -53,13 +53,13 @@ class button:
     def set_just_mouse_in_image(self, img: pygame.Surface) -> None:
         self.image[just_mouse_in] = Image.scale(img, image[idling].get_size());
 
-    def set_just_mouse_out_image(self, img: pygmae.Surface) -> None:
+    def set_just_mouse_out_image(self, img: pygame.Surface) -> None:
         self.image[just_mouse_out] = Image.scale(img, image[idling].get_size());
         
-    def set_just_clicked_image(self, img: pygmae.Surface) -> None:
+    def set_just_clicked_image(self, img: pygame.Surface) -> None:
         self.image[just_clicked] = Image.scale(img, image[idling].get_size());
         
-    def set_just_declicked_image(self, img: pygmae.Surface) -> None:
+    def set_just_declicked_image(self, img: pygame.Surface) -> None:
         self.image[just_declicked] = Image.scale(img, image[idling].get_size());
 
     def set_disabled_image(self, img: pygame.Surface) -> None:
@@ -133,3 +133,5 @@ class button:
         try:
             img = self.image[self.stat]
             Image.draw(screen, img, self.pos, self.vertex)
+        except:
+            pass
