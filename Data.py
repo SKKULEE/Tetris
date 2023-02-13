@@ -13,7 +13,7 @@ import os
 def resource_path(relative_path: str) -> str:
     try:
         base_path = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
-    except Exception:
+    except:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 
@@ -63,4 +63,4 @@ Z-mino color: (236, 028, 036)"""
 
 #Variables ********************************************************************
 
-font = None #추가 예정
+font = "fonts\LCG_classic.png" #게임 파일 수정을 통해 커스텀 폰트로 변경 가능하게 수정 예정

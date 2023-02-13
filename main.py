@@ -4,7 +4,7 @@
 
 #Built-in Modules *************************************************************
 
-import os, pygame
+import os, pygame, sys
 
 
 
@@ -17,11 +17,13 @@ pygame.init()
 #Basic Variables **************************************************************
 
 CAPTION = "Tetris -by.LCG"
-ICON = pygame.image.load("images\icon.png")
+ICON = pygame.image.load(os.path.join(getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__))), "images\icon.png"))
+
 RESOLUTION = (1280, 720)
-FPS = 120
+FPS = 144
 MAGNIFYING_RATE = 1
 CLOCK = pygame.time.Clock()
+MOUSE = pygame.mouse
 
 
 
@@ -31,7 +33,7 @@ WINDOW = pygame.display
 WINDOW.set_caption(CAPTION)
 WINDOW.set_icon(ICON)
 SCREEN = WINDOW.set_mode(RESOLUTION)
-pygame.mouse.set_visible(False)
+MOUSE.set_visible(False)
 
 
 
@@ -48,6 +50,7 @@ FULL_SCREEN = False
 PAUSED = False
 QUIT_MENU_POPPED = False
 CURSOR_IMAGE = Image.load("images\cursor.png")
+
 
 
 
@@ -132,9 +135,9 @@ while RUNNING:
             break
 
     #Draw Cursor ****************************************** This will be changed to be under control of 'Event' module
-    if pygame.mouse.get_focused():
+    if MOUSE.get_focused() and GAME_STATUS != Event.starting:
         NEW_IMAGE = Image.scale(CURSOR_IMAGE, MAGNIFYING_RATE)
-        Image.draw(SCREEN, NEW_IMAGE, pygame.mouse.get_pos(), Image.center)
+        Image.draw(SCREEN, NEW_IMAGE, MOUSE.get_pos(), Image.center)
 
     #Key Input ********************************************
     for e in pygame.event.get():

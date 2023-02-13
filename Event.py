@@ -36,6 +36,10 @@ try:
     MAGNIFYING_RATE = main.MAGNIFYING_RATE
 except:
     raise NameError("To use 'Event' module, '__main__' module must have initialized 'int' or 'float' object named 'MAGNIFYING_RATE'")
+try:
+    MOUSE = main.MOUSE
+except:
+    raise NameError("To use 'Event' module, '__main__' module must have initialized 'pygame.mouse' object named 'MOUSE'")
 
 
 
@@ -158,6 +162,7 @@ def starting_fade_out_action(st: status) -> None:
     st.dict["fade_out_counter"] -= 1
 
     if st.dict["fade_out_counter"] < 0:
+        MOUSE.set_pos(RESOLUTION[0] // 2, RESOLUTION[1] // 2)
         st.dict_del("fade_out_counter")
         main.GAME_STATUS = title_screen
         title_screen.init()
